@@ -87,7 +87,7 @@ if not filtered_df.empty:
     fig = px.bar(
         filtered_df,
         x="Strategy",
-        y="Median",
+        y=selected_col,
         color="Screens",
         hover_data=["Screens", selected_col],
         title=chart_title,
@@ -118,7 +118,7 @@ if not filtered_df.empty:
     st.write("---")
 
     st.info("This chart shows the spread of results across all 6 models (D, E, GE, M, S, W) for each strategy."
-            "Hover on each point for tooltips like the source of model. For example, model W and GE predict the most"
+            "Hover on each point for tooltips like the source of model. For example, model W and GE predict the most "
             "conservative mortality reduction results.")
 
     # We "melt" the data to put all model results in one column
