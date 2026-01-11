@@ -17,7 +17,7 @@ def load_data():
     def get_intervals(strategy):
         intervals = []
         if 'A' in strategy: intervals.append('Annual')
-        if 'B' in strategy: intervals.append('Biannual')
+        if 'B' in strategy: intervals.append('Biennial')
         return intervals
 
     df['Start Year'] = df['Strategy'].apply(lambda x: get_years(x)[0])
@@ -47,7 +47,7 @@ model_options = {
 selected_model_label = st.sidebar.selectbox("Select Output Model", list(model_options.keys()))
 selected_col = model_options[selected_model_label]
 
-interval_choice = st.sidebar.selectbox("Screening Interval", ["All", "Annual", "Biannual"])
+interval_choice = st.sidebar.selectbox("Screening Interval", ["All", "Annual", "Biennial"])
 
 start_years = ["All"] + sorted([str(y) for y in df['Start Year'].unique()])
 start_choice = st.sidebar.selectbox("Start Age", start_years)
@@ -81,7 +81,7 @@ if not filtered_df.empty:
     # Chart: Screens vs Median Reduction
     st.subheader("Comparison: # of Screens vs Mortality Reduction")
     chart_title = (f"Mortality Reduction (%): {selected_model_label} Results "
-                   f"by {interval_choice if interval_choice != "All" else "Annual,Biannual"} interval"
+                   f"by {interval_choice if interval_choice != "All" else "Annual,Biennial"} interval"
                    )  # f"Start age includes {start_choice} End age includes {end_choice}"
     st.info(
         f"**Note on Color:** The bars are colored by the **Total Number of Screens**. "
