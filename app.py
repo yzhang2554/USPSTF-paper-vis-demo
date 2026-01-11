@@ -29,7 +29,8 @@ def load_data():
 
 df = load_data()
 
-st.title("Mammography Screening Data Explorer")
+st.title("USPSTF Screening Paper Breast Cancer Mortality Reduction"
+         " Data Explorer")
 
 # --- SIDEBAR FILTERS ---
 st.sidebar.header("Filter Options")
@@ -49,10 +50,10 @@ selected_col = model_options[selected_model_label]
 interval_choice = st.sidebar.selectbox("Screening Interval", ["All", "Annual", "Biannual"])
 
 start_years = ["All"] + sorted([str(y) for y in df['Start Year'].unique()])
-start_choice = st.sidebar.selectbox("Start Year", start_years)
+start_choice = st.sidebar.selectbox("Start Age", start_years)
 
 end_years = ["All"] + sorted([str(y) for y in df['End Year'].unique()])
-end_choice = st.sidebar.selectbox("End Year", end_years)
+end_choice = st.sidebar.selectbox("End Age", end_years)
 
 # --- FILTERING LOGIC ---
 filtered_df = df.copy()
@@ -80,7 +81,8 @@ if not filtered_df.empty:
     # Chart: Screens vs Median Reduction
     st.subheader("Comparison: # of Screens vs Mortality Reduction")
     chart_title = (f"Mortality Reduction (%): {selected_model_label} Results "
-                   f"by {interval_choice} interval from {start_choice} to {end_choice}")
+                   f"by {interval_choice if interval_choice != "All" else "Annual,Biannual"} interval"
+                   )  # f"Start age includes {start_choice} End age includes {end_choice}"
     st.info(
         f"**Note on Color:** The bars are colored by the **Total Number of Screens**. "
         f"Darker/Redder bars indicate a higher total number of screens.")
